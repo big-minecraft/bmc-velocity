@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+}
+
+group 'dev.wiji'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven { url "https://jitpack.io" }
+    maven { url "https://repo.papermc.io/repository/maven-public/" }
+}
+
+dependencies {
+    implementation 'com.github.kyriji:big-minecraft-api:1.0.1'
+    compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
+    annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
+}
+
+test {
+    useJUnitPlatform()
+}
