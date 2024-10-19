@@ -5,11 +5,14 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
 import dev.wiji.bigminecraftapi.redis.RedisListener;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -37,7 +40,7 @@ public class BigMinecraftVelocity {
 
 			BigMinecraftAPI.init();
 
-			new RedisListener("instance-registered") {
+			new RedisListener("instance-changed") {
 				@Override
 				public void onMessage(String message) {
 					registerServers();
@@ -47,11 +50,18 @@ public class BigMinecraftVelocity {
 	}
 
 	public void registerServers() {
+		List<RegisteredServer> servers = new ArrayList<>(BigMinecraftVelocity.INSTANCE.getAllServers());
+
 		BigMinecraftAPI.getRedisManager().getInstances().forEach(instance -> {
-			if (INSTANCE.getServer(instance.getName()).isPresent()) return;
+			if (INSTANCE.getServer(instance.getName()).isPresent()) {
+				servers.remove(INSTANCE.getServer(instance.getName()).get());
+				return;
+			}
 
 			InetSocketAddress address = new InetSocketAddress(instance.getIp(), 25565);
 			INSTANCE.registerServer(new ServerInfo(instance.getName(), address));
 		});
+
+		servers.forEach(server -> INSTANCE.unregisterServer(server.getServerInfo()));
 	}
 }
