@@ -8,13 +8,12 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-
-    maven { url "https://jitpack.io" }
     maven { url "https://repo.papermc.io/repository/maven-public/" }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    implementation 'com.github.kyriji:big-minecraft-api:1.0.1'
+    implementation 'com.github.BigMinecraftFramework:bmc-api:1.0.3'
     compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
     annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 }
