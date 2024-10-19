@@ -37,7 +37,7 @@ public class BigMinecraftVelocity {
 
 			BigMinecraftAPI.init();
 
-			new RedisListener("proxy") {
+			new RedisListener("instance-registered") {
 				@Override
 				public void onMessage(String message) {
 					registerServers();
