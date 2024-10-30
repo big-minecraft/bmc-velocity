@@ -1,4 +1,4 @@
-package dev.wiji.bigminecraftvelocity;
+package dev.kyriji.bmcvelocity;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.PreLoginEvent;

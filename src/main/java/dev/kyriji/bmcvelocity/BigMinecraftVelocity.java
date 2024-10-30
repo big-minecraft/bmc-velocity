@@ -1,4 +1,4 @@
-package dev.wiji.bigminecraftvelocity;
+package dev.kyriji.bmcvelocity;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
@@ -13,7 +13,6 @@ import dev.wiji.bigminecraftapi.redis.RedisListener;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 @Plugin(id = "bmc-velocity", name = "BigMinecraftVelocity", version = "1.0",
