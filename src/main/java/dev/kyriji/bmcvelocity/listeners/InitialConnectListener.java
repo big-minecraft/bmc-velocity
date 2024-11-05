@@ -1,17 +1,18 @@
-package dev.kyriji.bmcvelocity;
+package dev.kyriji.bmcvelocity.listeners;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.PreLoginEvent;
 import com.velocitypowered.api.event.player.PlayerChooseInitialServerEvent;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
+import dev.kyriji.bmcvelocity.BigMinecraftVelocity;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
 import dev.wiji.bigminecraftapi.redis.RedisListener;
 
 import java.util.*;
 
-public class EventHandler {
+public class InitialConnectListener {
 
-	public EventHandler() {
+	public InitialConnectListener() {
 
 		new Thread(() -> {
 			new RedisListener("initial-server-response") {

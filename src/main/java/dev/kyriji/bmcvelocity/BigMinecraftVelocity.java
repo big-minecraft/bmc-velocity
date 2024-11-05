@@ -7,10 +7,14 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
+import dev.kyriji.bmcvelocity.listeners.InitialConnectListener;
+import dev.kyriji.bmcvelocity.listeners.PlayerListener;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
 import dev.wiji.bigminecraftapi.redis.RedisListener;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -32,7 +36,8 @@ public class BigMinecraftVelocity {
 	public void onProxyInitialize(ProxyInitializeEvent event) {
 		System.out.println("BigMinecraftVelocity loaded");
 
-		INSTANCE.getEventManager().register(this, new EventHandler());
+		INSTANCE.getEventManager().register(this, new InitialConnectListener());
+		INSTANCE.getEventManager().register(this, new PlayerListener());
 
 		new Thread(() -> {
 			registerServers();
