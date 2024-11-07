@@ -4,20 +4,25 @@ import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
+import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
+import dev.kyriji.bmcvelocity.commands.PlayCommand;
 import dev.kyriji.bmcvelocity.listeners.InitialConnectListener;
 import dev.kyriji.bmcvelocity.listeners.PingListener;
 import dev.kyriji.bmcvelocity.listeners.PlayerListener;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
 import dev.wiji.bigminecraftapi.redis.RedisListener;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Plugin(id = "bmc-velocity", name = "BigMinecraftVelocity", version = "1.0",
@@ -41,6 +46,8 @@ public class BigMinecraftVelocity {
 		INSTANCE.getEventManager().register(this, new PlayerListener());
 		INSTANCE.getEventManager().register(this, new PingListener());
 
+		INSTANCE.getCommandManager().register(INSTANCE.getCommandManager().metaBuilder("play").build(), new PlayCommand());
+
 		new Thread(() -> {
 			registerServers();
 
@@ -50,6 +57,28 @@ public class BigMinecraftVelocity {
 				@Override
 				public void onMessage(String message) {
 					registerServers();
+				}
+			};
+
+			new RedisListener("queue-response") {
+				@Override
+				public void onMessage(String message) {
+					String[] parts = message.split(":");
+					UUID uuid = UUID.fromString(parts[0]);
+					String server = parts[1];
+
+					RegisteredServer registeredServer = INSTANCE.getServer(server).orElse(null);
+					Player player = INSTANCE.getPlayer(uuid).orElse(null);
+					if(player == null) return;
+
+					if(registeredServer == null) {
+						player.sendMessage(Component.text("Gamemode does not exist or is currently unavailable.")
+								.color(TextColor.color(255, 0, 0)));
+
+						return;
+					}
+
+					player.createConnectionRequest(registeredServer).fireAndForget();
 				}
 			};
 		}).start();

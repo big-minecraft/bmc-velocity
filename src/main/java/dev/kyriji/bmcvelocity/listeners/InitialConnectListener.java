@@ -21,7 +21,7 @@ public class InitialConnectListener {
 			new RedisListener("initial-server-response") {
 				@Override
 				public void onMessage(String message) {
-					String[] parts = message.split(" ");
+					String[] parts = message.split(":");
 					UUID player = UUID.fromString(parts[0]);
 					String server = parts[1];
 
