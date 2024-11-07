@@ -7,6 +7,9 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import dev.kyriji.bmcvelocity.BigMinecraftVelocity;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
 import dev.wiji.bigminecraftapi.redis.RedisListener;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.TextColor;
 
 import java.util.*;
 
@@ -41,6 +44,10 @@ public class InitialConnectListener {
 	@Subscribe
 	public void onPreConnect(PreLoginEvent event) {
 		if(event.getUniqueId() == null) return;
+		if(BigMinecraftAPI.getRedisManager().isPlayerConnected(event.getUniqueId())) {
+			event.setResult(PreLoginEvent.PreLoginComponentResult.denied(Component.text("You are already connected to the network.").color(TextColor.color(255, 0, 0))));
+			return;
+		}
 
 		System.out.println("PreLoginEvent: " + event.getUniqueId().toString());
 		BigMinecraftAPI.getRedisManager().publish("request-initial-server", event.getUniqueId().toString());

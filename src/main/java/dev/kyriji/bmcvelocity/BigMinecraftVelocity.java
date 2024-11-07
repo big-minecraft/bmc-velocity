@@ -8,6 +8,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
 import dev.kyriji.bmcvelocity.listeners.InitialConnectListener;
+import dev.kyriji.bmcvelocity.listeners.PingListener;
 import dev.kyriji.bmcvelocity.listeners.PlayerListener;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
 import dev.wiji.bigminecraftapi.redis.RedisListener;
@@ -38,6 +39,7 @@ public class BigMinecraftVelocity {
 
 		INSTANCE.getEventManager().register(this, new InitialConnectListener());
 		INSTANCE.getEventManager().register(this, new PlayerListener());
+		INSTANCE.getEventManager().register(this, new PingListener());
 
 		new Thread(() -> {
 			registerServers();
