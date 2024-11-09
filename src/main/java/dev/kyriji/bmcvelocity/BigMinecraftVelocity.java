@@ -13,13 +13,12 @@ import dev.kyriji.bmcvelocity.listeners.InitialConnectListener;
 import dev.kyriji.bmcvelocity.listeners.PingListener;
 import dev.kyriji.bmcvelocity.listeners.PlayerListener;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
-import dev.wiji.bigminecraftapi.redis.RedisListener;
+import dev.wiji.bigminecraftapi.controllers.RedisListener;
+import dev.wiji.bigminecraftapi.enums.RedisChannel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -53,14 +52,14 @@ public class BigMinecraftVelocity {
 
 			BigMinecraftAPI.init();
 
-			new RedisListener("instance-changed") {
+			new RedisListener(RedisChannel.INSTANCE_MODIFIED) {
 				@Override
 				public void onMessage(String message) {
 					registerServers();
 				}
 			};
 
-			new RedisListener("queue-response") {
+			new RedisListener(RedisChannel.QUEUE_RESPONSE) {
 				@Override
 				public void onMessage(String message) {
 					String[] parts = message.split(":");
@@ -87,7 +86,7 @@ public class BigMinecraftVelocity {
 	public void registerServers() {
 		List<RegisteredServer> servers = new ArrayList<>(BigMinecraftVelocity.INSTANCE.getAllServers());
 
-		BigMinecraftAPI.getRedisManager().getInstances().forEach(instance -> {
+		BigMinecraftAPI.getNetworkManager().getInstances().forEach(instance -> {
 			if (INSTANCE.getServer(instance.getName()).isPresent()) {
 				servers.remove(INSTANCE.getServer(instance.getName()).get());
 				return;

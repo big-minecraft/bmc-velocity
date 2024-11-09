@@ -25,6 +25,6 @@ public class PlayCommand implements SimpleCommand {
 		}
 
 		String gamemode = args[0];
-		BigMinecraftAPI.getRedisManager().queuePlayer(player.getUniqueId(), gamemode);
+		BigMinecraftAPI.getNetworkManager().queuePlayer(player.getUniqueId(), gamemode);
 	}
 }

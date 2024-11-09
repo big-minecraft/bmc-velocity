@@ -3,18 +3,15 @@ package dev.kyriji.bmcvelocity.listeners;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.connection.LoginEvent;
-import com.velocitypowered.api.event.connection.PreLoginEvent;
-import com.velocitypowered.api.event.player.PlayerChooseInitialServerEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
-import dev.kyriji.bmcvelocity.BigMinecraftVelocity;
 import dev.wiji.bigminecraftapi.BigMinecraftAPI;
-import dev.wiji.bigminecraftapi.redis.RedisListener;
+import dev.wiji.bigminecraftapi.enums.RedisChannel;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.UUID;
 
 public class PlayerListener {
 
@@ -27,7 +24,7 @@ public class PlayerListener {
 		String proxyIP = getHostname();
 		String payload = playerId.toString() + ":" + name + ":" + proxyIP;
 
-		BigMinecraftAPI.getRedisManager().publish("proxy-connect", payload);
+		BigMinecraftAPI.getRedisManager().publish(RedisChannel.PROXY_CONNECT, payload);
 	}
 
 	@Subscribe
@@ -39,7 +36,7 @@ public class PlayerListener {
 		String proxyIP = getHostname();
 		String payload = playerId.toString() + ":" + name + ":" + proxyIP;
 
-		BigMinecraftAPI.getRedisManager().publish("proxy-disconnect", payload);
+		BigMinecraftAPI.getRedisManager().publish(RedisChannel.PROXY_DISCONNECT, payload);
 	}
 
 	@Subscribe
@@ -49,11 +46,11 @@ public class PlayerListener {
 		String name = player.getUsername();
 
 		RegisteredServer server = event.getServer();
-		String serverUid = server.getServerInfo().getName();
+		String serverIP = server.getServerInfo().getAddress().getHostName();
 
-		String payload = playerId.toString() + ":" + name + ":" + serverUid;
+		String payload = playerId.toString() + ":" + name + ":" + serverIP;
 
-		BigMinecraftAPI.getRedisManager().publish("server-switch", payload);
+		BigMinecraftAPI.getRedisManager().publish(RedisChannel.INSTANCE_SWITCH, payload);
 	}
 
 	public String getHostname() {
