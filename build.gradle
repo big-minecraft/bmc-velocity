@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.BigMinecraftFramework:bmc-api:1.1.1'
+    implementation 'com.github.BigMinecraftFramework:bmc-api:368fe6d2b6'
     compileOnly "com.velocitypowered:velocity-api:3.4.0-SNAPSHOT"
     annotationProcessor "com.velocitypowered:velocity-api:3.4.0-SNAPSHOT"
 }

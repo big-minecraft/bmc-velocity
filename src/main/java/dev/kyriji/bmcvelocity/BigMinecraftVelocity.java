@@ -71,7 +71,7 @@ public class BigMinecraftVelocity {
 					if(player == null) return;
 
 					if(registeredServer == null) {
-						player.sendMessage(Component.text("Gamemode does not exist or is currently unavailable.")
+						player.sendMessage(Component.text("Game does not exist or is currently unavailable.")
 								.color(TextColor.color(255, 0, 0)));
 
 						return;

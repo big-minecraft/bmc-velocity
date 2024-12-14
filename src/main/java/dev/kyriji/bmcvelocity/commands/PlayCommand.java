@@ -20,11 +20,11 @@ public class PlayCommand implements SimpleCommand {
 		}
 
 		if (args.length == 0) {
-			source.sendMessage(Component.text("Usage: /play <gamemode>").color(TextColor.color(255, 0, 0)));
+			source.sendMessage(Component.text("Usage: /play <game>").color(TextColor.color(255, 0, 0)));
 			return;
 		}
 
-		String gamemode = args[0];
-		BigMinecraftAPI.getNetworkManager().queuePlayer(player.getUniqueId(), gamemode);
+		String game = args[0];
+		BigMinecraftAPI.getNetworkManager().queuePlayer(player.getUniqueId(), game);
 	}
 }
