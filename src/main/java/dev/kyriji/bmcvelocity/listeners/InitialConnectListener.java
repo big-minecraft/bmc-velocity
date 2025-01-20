@@ -18,7 +18,7 @@ public class InitialConnectListener {
 	public InitialConnectListener() {
 
 		new Thread(() -> {
-			new RedisListener(RedisChannel.INITIAL_INSTANCE_RESPONSE) {
+			BigMinecraftAPI.getRedisManager().addListener(new RedisListener(RedisChannel.INITIAL_INSTANCE_RESPONSE) {
 				@Override
 				public void onMessage(String message) {
 					String[] parts = message.split(":");
@@ -35,7 +35,7 @@ public class InitialConnectListener {
 						}
 					}, 5000);
 				}
-			};
+			});
 		}).start();
 	}
 

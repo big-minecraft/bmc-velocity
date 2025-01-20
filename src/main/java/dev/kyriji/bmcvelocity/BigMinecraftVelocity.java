@@ -41,6 +41,8 @@ public class BigMinecraftVelocity {
 	public void onProxyInitialize(ProxyInitializeEvent event) {
 		System.out.println("BigMinecraftVelocity loaded");
 
+		BigMinecraftAPI.init();
+
 		INSTANCE.getEventManager().register(this, new InitialConnectListener());
 		INSTANCE.getEventManager().register(this, new PlayerListener());
 		INSTANCE.getEventManager().register(this, new PingListener());
@@ -50,16 +52,14 @@ public class BigMinecraftVelocity {
 		new Thread(() -> {
 			registerServers();
 
-			BigMinecraftAPI.init();
-
-			new RedisListener(RedisChannel.INSTANCE_MODIFIED) {
+			BigMinecraftAPI.getRedisManager().addListener(new RedisListener(RedisChannel.INSTANCE_MODIFIED) {
 				@Override
 				public void onMessage(String message) {
 					registerServers();
 				}
-			};
+			});
 
-			new RedisListener(RedisChannel.QUEUE_RESPONSE) {
+			BigMinecraftAPI.getRedisManager().addListener(new RedisListener(RedisChannel.QUEUE_RESPONSE) {
 				@Override
 				public void onMessage(String message) {
 					String[] parts = message.split(":");
@@ -79,7 +79,7 @@ public class BigMinecraftVelocity {
 
 					player.createConnectionRequest(registeredServer).fireAndForget();
 				}
-			};
+			});
 		}).start();
 	}
 
