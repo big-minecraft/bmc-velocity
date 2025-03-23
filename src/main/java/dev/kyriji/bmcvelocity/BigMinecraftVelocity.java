@@ -8,13 +8,13 @@ import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
+import dev.kyriji.bigminecraftapi.BigMinecraftAPI;
+import dev.kyriji.bigminecraftapi.controllers.RedisListener;
+import dev.kyriji.bigminecraftapi.enums.RedisChannel;
 import dev.kyriji.bmcvelocity.commands.PlayCommand;
 import dev.kyriji.bmcvelocity.listeners.InitialConnectListener;
 import dev.kyriji.bmcvelocity.listeners.PingListener;
 import dev.kyriji.bmcvelocity.listeners.PlayerListener;
-import dev.wiji.bigminecraftapi.BigMinecraftAPI;
-import dev.wiji.bigminecraftapi.controllers.RedisListener;
-import dev.wiji.bigminecraftapi.enums.RedisChannel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 

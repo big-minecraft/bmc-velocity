@@ -6,8 +6,9 @@ import com.velocitypowered.api.event.connection.LoginEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
-import dev.wiji.bigminecraftapi.BigMinecraftAPI;
-import dev.wiji.bigminecraftapi.enums.RedisChannel;
+import dev.kyriji.bigminecraftapi.BigMinecraftAPI;
+import dev.kyriji.bigminecraftapi.enums.RedisChannel;
+
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

@@ -4,10 +4,10 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.PreLoginEvent;
 import com.velocitypowered.api.event.player.PlayerChooseInitialServerEvent;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
+import dev.kyriji.bigminecraftapi.BigMinecraftAPI;
+import dev.kyriji.bigminecraftapi.controllers.RedisListener;
+import dev.kyriji.bigminecraftapi.enums.RedisChannel;
 import dev.kyriji.bmcvelocity.BigMinecraftVelocity;
-import dev.wiji.bigminecraftapi.BigMinecraftAPI;
-import dev.wiji.bigminecraftapi.controllers.RedisListener;
-import dev.wiji.bigminecraftapi.enums.RedisChannel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 
