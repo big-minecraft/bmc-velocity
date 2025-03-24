@@ -86,12 +86,16 @@ public class BigMinecraftVelocity {
 	public void registerServers() {
 		List<RegisteredServer> servers = new ArrayList<>(BigMinecraftVelocity.INSTANCE.getAllServers());
 
+		System.out.println("Attempting to register servers");
 		BigMinecraftAPI.getNetworkManager().getInstances().forEach(instance -> {
+			System.out.println("Registering server: " + instance.getName());
 			if (INSTANCE.getServer(instance.getName()).isPresent()) {
+				System.out.println("Server already exists: " + instance.getName());
 				servers.remove(INSTANCE.getServer(instance.getName()).get());
 				return;
 			}
 
+			System.out.println("Server does not exist: " + instance.getName());
 			InetSocketAddress address = new InetSocketAddress(instance.getIp(), 25565);
 			INSTANCE.registerServer(new ServerInfo(instance.getName(), address));
 		});
