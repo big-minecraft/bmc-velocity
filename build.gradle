@@ -14,7 +14,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'dev.kyriji:bmc-api:0.0.0'
+    implementation files('libs/bmc-api-0.0.0.jar')
+
     compileOnly "com.velocitypowered:velocity-api:3.4.0-SNAPSHOT"
     annotationProcessor "com.velocitypowered:velocity-api:3.4.0-SNAPSHOT"
 }
