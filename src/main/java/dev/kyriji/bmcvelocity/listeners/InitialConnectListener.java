@@ -1,5 +1,6 @@
 package dev.kyriji.bmcvelocity.listeners;
 
+import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.PreLoginEvent;
 import com.velocitypowered.api.event.player.PlayerChooseInitialServerEvent;
@@ -41,7 +42,7 @@ public class InitialConnectListener {
 
 	private final Map<UUID, String> initialServers = new HashMap<>();
 
-	@Subscribe
+	@Subscribe(order = PostOrder.LAST)
 	public void onPreConnect(PreLoginEvent event) {
 		if(event.getUniqueId() == null) return;
 		if(BigMinecraftAPI.getNetworkManager().isPlayerConnected(event.getUniqueId())) {
