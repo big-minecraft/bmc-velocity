@@ -87,7 +87,7 @@ public class BigMinecraftVelocity {
 		List<RegisteredServer> servers = new ArrayList<>(BigMinecraftVelocity.INSTANCE.getAllServers());
 
 		BigMinecraftAPI.getNetworkManager().getInstances().forEach(instance -> {
-			if (instance.getName().toLowerCase().contains("proxy")) return;
+			if (instance.getName() == null || instance.getName().toLowerCase().contains("proxy")) return;
 
 			if (INSTANCE.getServer(instance.getName()).isPresent()) {
 				servers.remove(INSTANCE.getServer(instance.getName()).get());
